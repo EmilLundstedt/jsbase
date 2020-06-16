@@ -1,4 +1,231 @@
-p {
-    font-size: 100px;
-    color: red;
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+html {
+    height: 100%;
+}
+
+header {
+    display: flex;
+    background: lightskyblue;
+    padding: 50px;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.15);
+}
+#page-container {
+    position: relative;
+    min-height: 100%;
+}
+#content-wrap {
+    /* Could need to add padding here thats footers size */
+    padding-bottom: 360px;
+}
+
+footer {
+    position: absolute;
+    background: lightskyblue;
+    color: black;
+    bottom: 0;
+    height: 60px;
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.container {
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+#submitform {
+    display: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: black 2px solid;
+    padding: 20px;
+
+    flex-direction: column;
+    width: 60%;
+    margin: auto;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+#submitform.visible {
+    display: flex;
+}
+button {
+    font: inherit;
+    border: 1px solid lightskyblue;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    background: lightskyblue;
+    cursor: pointer;
+    width: 20%;
+    margin: auto;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:hover,
+button:active {
+    background: rgb(121, 185, 224);
+    border-color: rgb(121, 185, 224);
+}
+
+button.visible {
+    display: none;
+}
+
+#submit_incident_btn {
+    display: none;
+}
+
+#submit_incident_btn.visible {
+    display: block;
+}
+
+#messagebox {
+    resize: none;
+    height: 10vh;
+    width: 80%;
+    align-self: center;
+    outline: none;
+}
+
+#incident-list {
+    width: 50rem;
+    max-width: 50%;
+    margin: 2rem auto;
+    display: block;
+    list-style: none;
+    cursor: pointer;
+}
+
+#incident-list.visible {
+    display: block;
+}
+
+#incident-list li {
+    color: #020202;
+
+    font-size: 1rem;
+
+    padding: 4px;
+    margin: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+#incident-list .incident_container {
+    border-bottom: black 2px solid;
+}
+#incident-list h1 {
+    margin: auto;
+
+    font-size: 20px;
+}
+
+#incident-list p {
+    margin: auto;
+}
+
+#incident-list button {
+    border: 1px rgba(255, 59, 59, 0.267);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    background: rgba(255, 59, 59, 0.267);
+    cursor: pointer;
+    width: 10%;
+}
+
+#incident-list span {
+    display: none;
+    border: 1px black solid;
+    background-color: rgba(251, 251, 251, 0.555);
+}
+
+#incident-list span.visible {
+    display: block;
+}
+
+.crossclass,
+#cross {
+    margin: auto;
+    font-size: 15px;
+    color: black;
+    cursor: pointer;
+}
+
+.crossclasscontainer,
+#crosscontainer {
+    display: flex;
+    align-self: flex-end;
+    width: 3%;
+    cursor: pointer;
+
+    background-color: rgba(255, 59, 59, 0.267);
+}
+
+.crossclasscontainer:hover > .crossclass {
+    color: white;
+    transform: scale(1.1);
+}
+
+.danger1,
+.danger2,
+.danger3,
+.danger4,
+.danger5 {
+    border: black 1px solid;
+}
+
+.danger1 {
+    background-color: rgb(0, 255, 85);
+}
+
+.danger2 {
+    background-color: rgb(0, 4, 255);
+}
+
+.danger3 {
+    background-color: rgb(255, 251, 0);
+}
+
+.danger4 {
+    background-color: rgb(255, 136, 0);
+}
+
+.danger5 {
+    background-color: rgb(255, 30, 0);
+}
+
+#loggedIn {
+    background-color: rebeccapurple;
+    display: block;
+}
+
+#loggedOut {
+    margin: auto;
+    width: 50%;
+
+    display: block;
+}
+
+#loggedOut.invisible {
+    display: none;
+}
+
+#loggedIn.invisible {
+    display: none;
 }

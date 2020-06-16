@@ -11,12 +11,72 @@
   
 </head>
 <body>
+
+    <div id="page-container">
+
+        <div id="content-wrap">
+            <header>
+                 <h1> Incident Handler 1.0</h1>
+                 
+            </header>
+            <div id="loggedOut">
+                <input id="txtEmail" type="email" placeholder="Email">
+                <input id="txtPassword" type="password" placeholder="Password">
+                <button id="btnLogin" class="btn btn-action"> log in</button>
+                <button id="btnSignin" class="btn btn-secondary"> sign in</button>
+                
+            
+            </div>
+            <div id="loggedIn">
+            <div class="container">
+                <p id="userInfo"> uppgifter om personen </p>
+            </div>
+          
+            <div class="container" id="container" >
+                <button id="add_incident_btn"> Add Incident </button>
+                <button id="btnLogout" class="btn btn-secondary"> log out</button>
+                <form id="submitform">
+                    <div id="crosscontainer">
+                        <div id="cross"> x </div>
+                    </div>
+                    <label>Title: </label>
+                    <input type="text"  autocomplete="off" id="message-title" name="fname" placeholder="Title">
+
+                    <label>Description: </label>   
+                    <textarea type="text" autocomplete="off" id="messagebox" name="messagebox">  </textarea>
+                    
+                    <label>Importance: </label>
+                    <select id="importance" name="subject" value="1">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option> 
+                        </select>
+
+                       
+                </form>
+                <button id="submit_incident_btn"> Submit </button> 
+                
+               </div> 
+               
+                   <ul id="incident-list" class="card"></ul>
+              
+             
+
+        </div>
+    </div>
+       
+
+
+
+    <footer>
+
+    </footer>
+
     
-    <p class="paragraph"> Hello </p>
-    <button class="toggle-button"> Click to remove text</button>
 
-    <script src="dist/bundle.js" defer></script>
+
+<script src="dist/bundle.js" defer></script>
 </body>
-
-
 </html>
