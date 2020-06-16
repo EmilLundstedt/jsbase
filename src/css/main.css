@@ -16,13 +16,16 @@ header {
     margin-bottom: 20px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.15);
 }
+body {
+    height: 100%;
+}
 #page-container {
-    position: relative;
-    min-height: 100%;
+    height: 100%;
 }
 #content-wrap {
     /* Could need to add padding here thats footers size */
-    padding-bottom: 360px;
+
+    height: 100%;
 }
 
 footer {
@@ -45,48 +48,65 @@ footer {
 
 #submitform {
     display: none;
-    background-color: rgba(255, 255, 255, 0.2);
-    border: black 2px solid;
+    background-color: rgb(42, 55, 68);
+    border-radius: 10px;
     padding: 20px;
-
+    color: white;
+    font-size: 20px;
     flex-direction: column;
     width: 60%;
     margin: auto;
     margin-bottom: 20px;
+    margin-top: 20px;
     justify-content: center;
     align-items: center;
 }
-
+#submitform input {
+    outline: none;
+    margin-bottom: 20px;
+}
 #submitform.visible {
     display: flex;
 }
 button {
     font: inherit;
-    border: 1px solid lightskyblue;
+    border: 5px solid lightskyblue;
     color: white;
     padding: 1rem 2rem;
+    font-size: 20px;
+    font-weight: bolder;
     border-radius: 5px;
     background: lightskyblue;
     cursor: pointer;
     width: 30%;
     margin: 30px;
-    margin-left: auto;
 }
 
 #btnLogout {
     background-color: rgb(230, 156, 156);
+    border-color: rgb(230, 156, 156);
 }
 #btnLogin {
-    background-color: rgb(202, 238, 181);
+    background-color: rgb(191, 243, 161);
+    border-color: rgb(191, 243, 161);
+}
+
+#btnSignin {
+    background-color: rgb(226, 233, 124);
+    border-color: rgb(226, 233, 124);
 }
 button:focus {
     outline: none;
 }
-
+#add_incident_btn {
+    margin: auto;
+}
 button:hover,
-button:active {
-    background: rgba(57, 59, 59, 0.589);
-    border-color: rgba(57, 59, 59, 0.589);
+button:active,
+#btnLogin:hover,
+#btnLogout:hover,
+#btnSignin:hover {
+    border: 5px solid rgba(180, 180, 180, 0.739);
 }
 
 button.visible {
@@ -123,18 +143,22 @@ button.visible {
 }
 
 #incident-list li {
-    color: #020202;
-
-    font-size: 1rem;
-
-    padding: 4px;
-    margin: 4px;
+    color: #ffffff;
+    background-color: rgb(42, 55, 68);
+    font-size: 20px;
+    border: 1px black solid;
+    padding: 5px;
+    margin: 5px;
     display: flex;
     flex-direction: column;
+    border-radius: 10px;
+}
+#incident-list h2 {
+    font-size: 20px;
 }
 
 #incident-list .incident_container {
-    border-bottom: black 2px solid;
+    border-bottom: rgb(7, 6, 6) 2px solid;
 }
 #incident-list h1 {
     margin: auto;
@@ -169,11 +193,16 @@ button.visible {
     border: 1px black solid;
     background-color: rgba(251, 251, 251, 0.555);
 }
-
+#submit_incident_btn {
+    background-color: rgba(145, 233, 189, 0.883);
+    border-color: rgba(145, 233, 189, 0.883);
+}
 #incident-list span.visible {
     display: block;
 }
-
+#incident-list h1 {
+    text-decoration: underline;
+}
 .crossclass,
 #cross {
     margin: auto;
@@ -189,7 +218,7 @@ button.visible {
     width: 3%;
     cursor: pointer;
 
-    background-color: rgba(255, 59, 59, 0.267);
+    background-color: rgba(255, 255, 255, 0.267);
 }
 
 .crossclasscontainer:hover > .crossclass {
@@ -197,18 +226,22 @@ button.visible {
     transform: scale(1.1);
 }
 
-.danger1,
-.danger2,
-.danger3,
-.danger4,
-.danger5 {
-    border: black 1px solid;
+#crosscontainer:hover > #cross {
+    color: white;
+    transform: scale(1.1);
 }
 
+.block {
+    width: 25px;
+    height: 25px;
+    border-radius: 20px;
+    background-color: red;
+    border: black 1px solid;
+    color: black;
+}
 .danger1 {
     background-color: rgb(0, 255, 85);
 }
-
 .danger2 {
     background-color: rgb(0, 4, 255);
 }
@@ -230,10 +263,24 @@ button.visible {
 }
 
 #loggedOut {
+    background-color: rgb(42, 55, 68);
+    height: 400px;
+    width: 400px;
     margin: auto;
-    width: 50%;
-
-    display: block;
+    border-radius: 10px;
+}
+#loggedOut input {
+    margin-top: 60px;
+    margin-left: 20px;
+    outline: none;
+}
+.buttoncontainer {
+    margin: 10px;
+}
+.buttoncontainer button {
+    width: 60%;
+    margin: 20px;
+    margin-left: 80px;
 }
 
 #loggedOut.invisible {
@@ -242,4 +289,20 @@ button.visible {
 
 #loggedIn.invisible {
     display: none;
+}
+
+.container1 {
+    background-color: rgb(42, 55, 68);
+    border-radius: 10px;
+    display: flex;
+    margin: auto;
+    margin-bottom: 10px;
+    width: 400px;
+}
+
+.container1 p {
+    margin: 30px;
+    font-size: 20px;
+    font-weight: bolder;
+    color: white;
 }

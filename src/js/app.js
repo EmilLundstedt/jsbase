@@ -184,17 +184,19 @@ const renderIncident = (incidentObj) => {
     let desc = document.createElement("span");
     let rating = document.createElement("p");
     let incidentHeader = document.createElement("div");
+    let block = document.createElement("div");
 
     let datetime = document.createElement("p");
     newIncident.setAttribute("data-id", incidentObj.id);
     newIncident.classList.add("incident");
 
-    datetime.textContent = incidentObj.data().newIncident.dates;
+    datetime.textContent = "Date: " + incidentObj.data().newIncident.dates;
     cross.textContent = "x";
     title.textContent = incidentObj.data().newIncident.titlename;
-    username.textContent = incidentObj.data().newIncident.user;
+    username.textContent = "Created by: " + incidentObj.data().newIncident.user;
     desc.textContent = incidentObj.data().newIncident.desc;
-    rating.textContent = incidentObj.data().newIncident.ratingvalue + " / 5";
+
+    block.classList.add("block");
 
     incidentHeader.classList.add("crossclasscontainer");
     cross.classList.add("crossclass");
@@ -207,22 +209,24 @@ const renderIncident = (incidentObj) => {
     newIncident.appendChild(desc);
     newIncident.appendChild(rating);
     newIncident.appendChild(datetime);
+    newIncident.appendChild(block);
 
     switch (incidentObj.data().newIncident.ratingvalue) {
         case "1":
-            newIncident.classList.add("danger1");
+            block.classList.add("danger1");
+
             break;
         case "2":
-            newIncident.classList.add("danger2");
+            block.classList.add("danger2");
             break;
         case "3":
-            newIncident.classList.add("danger3");
+            block.classList.add("danger3");
             break;
         case "4":
-            newIncident.classList.add("danger4");
+            block.classList.add("danger4");
             break;
         case "5":
-            newIncident.classList.add("danger5");
+            block.classList.add("danger5");
             break;
     }
 
