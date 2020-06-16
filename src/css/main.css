@@ -68,18 +68,25 @@ button {
     border-radius: 5px;
     background: lightskyblue;
     cursor: pointer;
-    width: 20%;
-    margin: auto;
+    width: 30%;
+    margin: 30px;
+    margin-left: auto;
 }
 
+#btnLogout {
+    background-color: rgb(230, 156, 156);
+}
+#btnLogin {
+    background-color: rgb(202, 238, 181);
+}
 button:focus {
     outline: none;
 }
 
 button:hover,
 button:active {
-    background: rgb(121, 185, 224);
-    border-color: rgb(121, 185, 224);
+    background: rgba(57, 59, 59, 0.589);
+    border-color: rgba(57, 59, 59, 0.589);
 }
 
 button.visible {
@@ -133,6 +140,14 @@ button.visible {
     margin: auto;
 
     font-size: 20px;
+}
+
+#incident {
+    display: block;
+}
+
+#incident.visible {
+    display: none;
 }
 
 #incident-list p {
@@ -211,7 +226,6 @@ button.visible {
 }
 
 #loggedIn {
-    background-color: rebeccapurple;
     display: block;
 }
 

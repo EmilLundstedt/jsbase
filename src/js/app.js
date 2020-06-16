@@ -19,12 +19,13 @@ const incidentList = document.getElementById("incident-list");
 const txtEmail = document.getElementById("txtEmail");
 const txtPassword = document.getElementById("txtPassword");
 const btnLogin = document.getElementById("btnLogin");
-const btnSignup = document.getElementById("btnSignup");
+const btnSignup = document.getElementById("btnSignin");
 const btnLogout = document.getElementById("btnLogout");
 
 const passwordField = document.getElementById("loggedOut");
 const infoField = document.getElementById("loggedIn");
 const cross = document.getElementById("crosscontainer");
+const userInfo = document.getElementById("userInfo");
 
 //firebase
 var firebaseConfig = {
@@ -51,7 +52,7 @@ btnLogin.addEventListener("click", (e) => {
 });
 
 /// sign up event
-btnLogin.addEventListener("click", (e) => {
+btnSignup.addEventListener("click", (e) => {
     const email = txtEmail.value;
     const pass = txtPassword.value;
     const auth = firebase.auth();
@@ -62,14 +63,16 @@ btnLogin.addEventListener("click", (e) => {
 // listener
 firebase.auth().onAuthStateChanged((firebaseUser) => {
     if (firebaseUser) {
-        console.log(firebaseUser);
+        console.log(firebaseUser.email + " is logged in!");
         passwordField.classList.add("invisible");
         infoField.classList.remove("invisible");
         userEmail = firebaseUser.email;
+
+        userInfo.innerHTML = "logged in as " + userEmail;
     } else {
         console.log("not logged in");
+        passwordField.classList.remove("invisible");
         infoField.classList.add("invisible");
-        passwordField.remove("invisible");
     }
 });
 
@@ -78,17 +81,44 @@ const db = firebase.firestore();
 const updateUI = () => {
     while (incidentList.firstChild) {
         incidentList.removeChild(incidentList.firstChild);
+        console.log("removed child element ");
     }
-
     db.collection("users")
+        .where("newIncident.user", "==", userEmail)
         .get()
         .then((snapshot) => {
             snapshot.docs.forEach((doc) => {
                 renderIncident(doc);
+                console.log("render the incidents");
             });
         });
+    // listener
+    firebase.auth().onAuthStateChanged((firebaseUser) => {
+        if (firebaseUser) {
+            console.log(firebaseUser.email + " is logged in!");
+            passwordField.classList.add("invisible");
+            infoField.classList.remove("invisible");
+            userEmail = firebaseUser.email;
+        } else {
+            passwordField.classList.remove("invisible");
+            infoField.classList.add("invisible");
+        }
+    });
 };
-
+// listener
+firebase.auth().onAuthStateChanged((firebaseUser) => {
+    if (firebaseUser) {
+        console.log(firebaseUser.email + " is logged in!");
+        passwordField.classList.add("invisible");
+        infoField.classList.remove("invisible");
+        userEmail = firebaseUser.email;
+        updateUI();
+    } else {
+        passwordField.classList.remove("invisible");
+        infoField.classList.add("invisible");
+        updateUI();
+    }
+});
 updateUI();
 
 cross.addEventListener("click", () => {
@@ -109,6 +139,14 @@ const clearInputs = () => {
     boxdesc.value = "";
     boxrating.value = 1;
 };
+
+btnLogout.addEventListener("click", (e) => {
+    while (incidentList.firstChild) {
+        incidentList.removeChild(incidentList.firstChild);
+        console.log("removed child element ");
+    }
+    firebase.auth().signOut();
+});
 
 submitIncidentButton.addEventListener("click", () => {
     const title = boxtitle.value;
@@ -149,6 +187,7 @@ const renderIncident = (incidentObj) => {
 
     let datetime = document.createElement("p");
     newIncident.setAttribute("data-id", incidentObj.id);
+    newIncident.classList.add("incident");
 
     datetime.textContent = incidentObj.data().newIncident.dates;
     cross.textContent = "x";
@@ -163,12 +202,11 @@ const renderIncident = (incidentObj) => {
     incidentHeader.appendChild(cross);
 
     newIncident.appendChild(incidentHeader);
-
+    newIncident.appendChild(username);
     newIncident.appendChild(title);
     newIncident.appendChild(desc);
     newIncident.appendChild(rating);
     newIncident.appendChild(datetime);
-    newIncident.appendChild(username);
 
     switch (incidentObj.data().newIncident.ratingvalue) {
         case "1":
@@ -190,11 +228,17 @@ const renderIncident = (incidentObj) => {
 
     incidentHeader.addEventListener("click", () => {
         let id = newIncident.getAttribute("data-id");
-
         db.collection("users").doc(id).delete();
-
-        updateUI();
+        deletepost(updateUI);
     });
+
+    function deletepost(callback) {
+        // Doing a duplicate of code, it fixes the error i had with ui running before firebase has updated deletion.
+        // fix later
+        let id = newIncident.getAttribute("data-id");
+        db.collection("users").doc(id).delete();
+        updateUI();
+    }
 
     newIncident.addEventListener("click", () => {
         newIncident.querySelector("span").classList.toggle("visible");
