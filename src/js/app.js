@@ -1,14 +1,12 @@
 import "../css/main.css";
 import firebase from "firebase";
 
-const incidents = [];
 var userEmail = null;
 
+// constants
 const addIncidentButton = document.getElementById("add_incident_btn");
 const submitIncidentButton = document.getElementById("submit_incident_btn");
-const removeIncidentButton = document.getElementById("remove_incident_btn");
 const incidentBox = document.getElementById("submitform");
-const container = document.getElementById("container");
 
 const boxtitle = document.getElementById("message-title");
 const boxdesc = document.getElementById("messagebox");
@@ -48,7 +46,7 @@ btnLogin.addEventListener("click", (e) => {
     const pass = txtPassword.value;
     const auth = firebase.auth();
     const promise = auth.signInWithEmailAndPassword(email, pass);
-    promise.catch((e) => console.log(e.message));
+    promise.catch((e) => alert(e.message + " Make sure to register your account first!"));
 });
 
 /// sign up event
@@ -57,31 +55,15 @@ btnSignup.addEventListener("click", (e) => {
     const pass = txtPassword.value;
     const auth = firebase.auth();
     const promise = auth.createUserWithEmailAndPassword(email, pass);
-    promise.catch((e) => console.log(e.message));
-});
-
-// listener
-firebase.auth().onAuthStateChanged((firebaseUser) => {
-    if (firebaseUser) {
-        console.log(firebaseUser.email + " is logged in!");
-        passwordField.classList.add("invisible");
-        infoField.classList.remove("invisible");
-        userEmail = firebaseUser.email;
-
-        userInfo.innerHTML = "logged in as " + userEmail;
-    } else {
-        console.log("not logged in");
-        passwordField.classList.remove("invisible");
-        infoField.classList.add("invisible");
-    }
+    promise.catch((e) => alert(e.message));
 });
 
 const db = firebase.firestore();
 
 const updateUI = () => {
+    // code snippet loops and destroys every single child from incidentlist, could be done in a better way.
     while (incidentList.firstChild) {
         incidentList.removeChild(incidentList.firstChild);
-        console.log("removed child element ");
     }
     db.collection("users")
         .where("newIncident.user", "==", userEmail)
@@ -89,34 +71,25 @@ const updateUI = () => {
         .then((snapshot) => {
             snapshot.docs.forEach((doc) => {
                 renderIncident(doc);
-                console.log("render the incidents");
             });
         });
-    // listener
-    firebase.auth().onAuthStateChanged((firebaseUser) => {
-        if (firebaseUser) {
-            console.log(firebaseUser.email + " is logged in!");
-            passwordField.classList.add("invisible");
-            infoField.classList.remove("invisible");
-            userEmail = firebaseUser.email;
-        } else {
-            passwordField.classList.remove("invisible");
-            infoField.classList.add("invisible");
-        }
-    });
 };
-// listener
+// listener for when account logs out/ logs in.
 firebase.auth().onAuthStateChanged((firebaseUser) => {
     if (firebaseUser) {
         console.log(firebaseUser.email + " is logged in!");
         passwordField.classList.add("invisible");
         infoField.classList.remove("invisible");
         userEmail = firebaseUser.email;
+        userInfo.innerText = "logged in as user " + userEmail;
         updateUI();
     } else {
         passwordField.classList.remove("invisible");
         infoField.classList.add("invisible");
+
         updateUI();
+        // maybe adding method to reset fields. But like the option
+        // for testing purposes
     }
 });
 updateUI();
@@ -143,7 +116,6 @@ const clearInputs = () => {
 btnLogout.addEventListener("click", (e) => {
     while (incidentList.firstChild) {
         incidentList.removeChild(incidentList.firstChild);
-        console.log("removed child element ");
     }
     firebase.auth().signOut();
 });
@@ -152,12 +124,12 @@ submitIncidentButton.addEventListener("click", () => {
     const title = boxtitle.value;
     const description = boxdesc.value;
     const rating = boxrating.value;
-
+    // error handling empty fields.
     if (title.trim() === "" || description.trim() === "") {
         alert("Please fill in the empty fields.");
         return;
     }
-
+    // how data is built up.
     const newIncident = {
         titlename: title,
         desc: description,
@@ -165,8 +137,6 @@ submitIncidentButton.addEventListener("click", () => {
         dates: Date().slice(7, -38),
         user: userEmail,
     };
-    console.log(newIncident);
-    incidents.push(newIncident);
 
     db.collection("users").add({
         newIncident,
@@ -176,6 +146,7 @@ submitIncidentButton.addEventListener("click", () => {
     updateUI();
 });
 
+// creating the incident card.
 const renderIncident = (incidentObj) => {
     const newIncident = document.createElement("li");
     let cross = document.createElement("div");
@@ -211,6 +182,7 @@ const renderIncident = (incidentObj) => {
     newIncident.appendChild(datetime);
     newIncident.appendChild(block);
 
+    // gives the block a specific color depending on difficultiy set .
     switch (incidentObj.data().newIncident.ratingvalue) {
         case "1":
             block.classList.add("danger1");
@@ -238,7 +210,6 @@ const renderIncident = (incidentObj) => {
 
     function deletepost(callback) {
         // Doing a duplicate of code, it fixes the error i had with ui running before firebase has updated deletion.
-        // fix later
         let id = newIncident.getAttribute("data-id");
         db.collection("users").doc(id).delete();
         updateUI();

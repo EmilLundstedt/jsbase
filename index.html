@@ -7,15 +7,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./src/css/main.css">
+   <!--For testing purposes <link rel="stylesheet" href="./src/css/main.css"> -->
   
 </head>
 <body>
 
     <div id="page-container">
  <header>
-                 <h1> Incident Handler 1.0</h1>
-                 
+                 <h1> Incident handler 1.0</h1>
+                
             </header>
         <div id="content-wrap">
            
@@ -33,7 +33,7 @@
                 <p id="userInfo"> uppgifter om personen </p>
                 <button id="btnLogout" class="btn btn-secondary"> Log out</button>
             </div>
-          
+                
             <div class="container" id="container" >
                 <button id="add_incident_btn"> Add Incident </button>
                  
@@ -48,33 +48,34 @@
                     <label>Description: </label>   
                     <textarea type="text" autocomplete="off" id="messagebox" name="messagebox">  </textarea>
                     
-                    <label>Importance: </label>
+                    <label>Color cordination </label>
                     <select id="importance" name="subject" value="1">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option> 
+                        <option value="1">Green</option>
+                        <option value="2">Blue</option>
+                        <option value="3">Yellow</option>
+                        <option value="4">Orange</option>
+                        <option value="5">Red</option> 
                         </select>
 
-                       <button id="submit_incident_btn"> Submit </button>
+                       
                 </form>
                 
                 
+                <button id="submit_incident_btn"> Submit </button>
+                <form id="searchfield">
+                    
+                    
+                </form>
+                
                </div> 
                
-                   <ul id="incident-list" class="card"></ul>
+                   <ul id="incident-list" class="card"> </ul>
               
              
 
         </div>
     </div>
        
-
-
-
-    
-    
 
 
 <script src="dist/bundle.js" defer></script>

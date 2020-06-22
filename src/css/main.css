@@ -6,11 +6,14 @@
 
 html {
     height: 100%;
+    width: 80%;
+    margin: auto;
+    background-color: rgb(238, 206, 131);
 }
 
 header {
     display: flex;
-    background: lightskyblue;
+    background: rgb(42, 55, 68);
     padding: 50px;
     color: white;
     margin-bottom: 20px;
@@ -27,18 +30,7 @@ body {
 
     height: 100%;
 }
-
-footer {
-    position: absolute;
-    background: lightskyblue;
-    color: black;
-    bottom: 0;
-    height: 60px;
-    width: 100%;
-    text-align: center;
-    font-size: 25px;
-    font-weight: bold;
-}
+/* header section - hamburger icon*/
 
 .container {
     height: 40%;
@@ -196,6 +188,7 @@ button.visible {
 #submit_incident_btn {
     background-color: rgba(145, 233, 189, 0.883);
     border-color: rgba(145, 233, 189, 0.883);
+    margin: auto;
 }
 #incident-list span.visible {
     display: block;
